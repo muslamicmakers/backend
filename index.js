@@ -34,7 +34,7 @@ const eventbriteRoute = async (req, res) => {
   };
 };
 
-const corsAndCache = route => cors(cache(ms.seconds('30'), route));
+const corsAndCache = route => cors(cache(ms.seconds('60'), route));
 
 module.exports = router(
   get('/', corsAndCache(airtableRoute)),

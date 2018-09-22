@@ -24,11 +24,12 @@ const getColumn = name => {
 };
 
 exports.getHeader = () => {
-  return getColumn('Header').then(records => {
-    return records.map(record => ({
-      text: record.get('Heading')
-    }))[0];
-  });
+  return getColumn('Header').then(
+    records =>
+      records.map(record => ({
+        text: record.get('Heading')
+      }))[0]
+  );
 };
 
 exports.getBios = () =>

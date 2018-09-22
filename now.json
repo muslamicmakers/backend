@@ -1,0 +1,9 @@
+{
+  "dotenv": ".env.production",
+  "scale": {
+    "bru1": {
+      "min": 0,
+      "max": 1
+    }
+  }
+}

@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8-alpine
 
 # Create app directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --only=production
 
 # Bundle app source
 COPY . .

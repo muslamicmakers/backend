@@ -15,7 +15,7 @@ const getEventbriteId = url => {
   return url.match(regex)[0];
 };
 
-const getColumn = async name => {
+const getColumn = name => {
   return base(name)
     .select({
       view: 'Grid view'
@@ -23,11 +23,12 @@ const getColumn = async name => {
     .firstPage();
 };
 
-exports.getHeader = async () => {
-  const records = await getColumn('Header');
-  return records.map(record => ({
-    text: record.get('Heading')
-  }))[0];
+exports.getHeader = () => {
+  return getColumn('Header').then(records => {
+    return records.map(record => ({
+      text: record.get('Heading')
+    }))[0];
+  });
 };
 
 exports.getBios = () =>

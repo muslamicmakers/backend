@@ -1,8 +1,9 @@
-const cors = require("micro-cors")();
-const cache = require("micro-cacheable");
-const ms = require("milliseconds");
-const airtable = require("./airtable");
-const eventbrite = require("./eventbrite");
+const cors = require('micro-cors')();
+const cache = require('micro-cacheable');
+const ms = require('milliseconds');
+
+const airtable = require('./airtable');
+const eventbrite = require('./eventbrite');
 
 const microFn = async (req, res) => {
   const headerData = await airtable.getHeader();
@@ -20,4 +21,4 @@ const microFn = async (req, res) => {
   return { headerData, videoData, bioData, eventbriteData };
 };
 
-module.exports = cors(cache(ms.seconds("30"), microFn));
+module.exports = cors(cache(ms.seconds('30'), microFn));

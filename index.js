@@ -1,24 +1,42 @@
+const ms = require('milliseconds');
 const cors = require('micro-cors')();
 const cache = require('micro-cacheable');
-const ms = require('milliseconds');
+const { router, get } = require('microrouter');
 
 const airtable = require('./airtable');
 const eventbrite = require('./eventbrite');
 
-const microFn = async (req, res) => {
-  const headerData = await airtable.getHeader();
-  const videoData = await airtable.getVideos();
-  const bioData = await airtable.getBios();
+const airtableRoute = async (req, res) => {
+  const headerData = airtable.getHeader();
+  const videoData = airtable.getVideos();
+  const bioData = airtable.getBios();
 
-  const eventbriteAirtableData = await airtable.getEventbrite();
-  const eventbriteApiData = await eventbrite.getEventbrite(
-    eventbriteAirtableData.id
-  );
-  const eventbriteData = Object.assign(eventbriteApiData, {
-    description: eventbriteAirtableData.description
-  });
+  const data = Promise.all([headerData, videoData, bioData]);
 
-  return { headerData, videoData, bioData, eventbriteData };
+  const json = data.then(([headerData, videoData, bioData]) => ({
+    headerData,
+    videoData,
+    bioData
+  }));
+
+  return await json;
 };
 
-module.exports = cors(cache(ms.seconds('30'), microFn));
+const eventbriteRoute = async (req, res) => {
+  const { id, description } = await airtable.getEventbrite();
+
+  // Note: the eventbrite API is super slow
+  const eventbriteData = await eventbrite.getEventbrite(id);
+
+  return {
+    ...eventbriteData,
+    description
+  };
+};
+
+const corsAndCache = route => cors(cache(ms.seconds('30'), route));
+
+module.exports = router(
+  get('/', corsAndCache(airtableRoute)),
+  get('/eventbrite', corsAndCache(eventbriteRoute))
+);

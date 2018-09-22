@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM mhart/alpine-node:10
 
 # Create app directory
 WORKDIR /app
@@ -13,5 +13,6 @@ RUN npm install --only=production
 # Bundle app source
 COPY . .
 
+ENV NODE_ENV="production"
 EXPOSE 3000
 CMD ["npm", "start"]

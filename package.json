@@ -26,8 +26,8 @@
     "micro-dev": "3.0.0"
   },
   "scripts": {
-    "start": "micro --listen 3000 index.js",
+    "start": "micro index.js",
     "dev": "micro-dev index.js",
-    "deploy": "now --docker"
+    "deploy": "now"
   }
 }

@@ -1,4 +1,5 @@
 {
+  "type": "docker",
   "dotenv": ".env.production",
   "scale": {
     "bru1": {

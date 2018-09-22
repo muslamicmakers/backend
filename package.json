@@ -13,7 +13,7 @@
     "micro-dev": "3.0.0"
   },
   "scripts": {
-    "start": "micro index.js",
+    "start": "micro -p 3000 index.js",
     "dev": "micro-dev index.js"
   }
 }

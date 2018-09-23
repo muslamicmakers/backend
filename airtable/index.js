@@ -62,6 +62,7 @@ exports.getEventbrite = () =>
     records =>
       records.map(record => ({
         id: getEventbriteId(record.get('Link')),
-        description: record.get('Description')
+        description: record.get('Description'),
+        ended: record.get('Ended')
       }))[0]
   );

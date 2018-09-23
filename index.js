@@ -23,14 +23,15 @@ const airtableRoute = async (req, res) => {
 };
 
 const eventbriteRoute = async (req, res) => {
-  const { id, description } = await airtable.getEventbrite();
+  const { id, description, ended } = await airtable.getEventbrite();
 
   // Note: the eventbrite API is super slow
   const eventbriteData = await eventbrite.getEventbrite(id);
 
   return {
     ...eventbriteData,
-    description
+    description,
+    ended
   };
 };
 

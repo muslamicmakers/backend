@@ -1,9 +1,12 @@
 {
   "type": "docker",
   "dotenv": ".env.production",
+  "features": {
+    "cloud": "v1"
+  },
   "scale": {
     "bru1": {
-      "min": 0,
+      "min": 1,
       "max": 1
     }
   }

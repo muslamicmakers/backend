@@ -1,5 +1,6 @@
 {
   "type": "docker",
+  "alias": "api.muslamicmakers.com",
   "dotenv": ".env.production",
   "features": {
     "cloud": "v1"

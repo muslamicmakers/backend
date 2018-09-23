@@ -24,11 +24,13 @@
     "milliseconds": "^1.0.3"
   },
   "devDependencies": {
+    "jest": "^23.6.0",
     "micro-dev": "3.0.0"
   },
   "scripts": {
     "start": "micro --port 3000 index.js",
     "dev": "micro-dev index.js",
+    "test": "jest",
     "deploy": "now"
   }
 }

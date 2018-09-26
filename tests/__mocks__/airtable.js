@@ -7,7 +7,8 @@ class Airtable {
 
   base() {
     return tableName => {
-      this.data = airtableTestData[tableName];
+      const tableData = airtableTestData[tableName];
+      this.data = Array.isArray(tableData) ? tableData : [tableData];
       return this;
     };
   }
@@ -17,12 +18,9 @@ class Airtable {
   }
 
   firstPage() {
-    const record = {
-      get: fieldName => {
-        return this.data[fieldName];
-      }
-    };
-    const records = [record];
+    const records = this.data.map(record => ({
+      get: fieldName => record[fieldName]
+    }));
     return Promise.resolve(records);
   }
 }

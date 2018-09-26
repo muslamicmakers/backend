@@ -13,6 +13,12 @@ describe('Airtable', () => {
         name: 'Bill Murray',
         photo: 'someImage.jpg',
         twitter: 'https://twitter.com/billmurray'
+      },
+      {
+        bio: 'Software Engineer, Speaker.',
+        name: 'Jane Doe',
+        photo: 'image.png',
+        twitter: 'https://twitter.com/jdoe'
       }
     ];
     const data = await airtable.getBios();

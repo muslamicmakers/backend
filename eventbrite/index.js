@@ -40,7 +40,7 @@ exports.getEventbrite = async id => {
   const venueId = result.venue_id;
   const venueData = await getVenueInfo(venueId);
 
-  const dateFormat = 'dddd do MMM @ h:mma';
+  const dateFormat = 'dddd Do MMM @ h:mma';
 
   return {
     title: result.name.text,

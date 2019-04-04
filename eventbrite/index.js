@@ -1,3 +1,4 @@
+require('now-env');
 const date = require('date-fns');
 const eb = require('eventbrite').default;
 

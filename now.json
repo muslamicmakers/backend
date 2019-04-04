@@ -1,14 +1,16 @@
 {
-  "type": "docker",
   "alias": "api.muslamicmakers.com",
-  "dotenv": ".env.production",
-  "features": {
-    "cloud": "v1"
-  },
+  "version": 2,
   "scale": {
     "bru1": {
-      "min": 1,
+      "min": 0,
       "max": 1
     }
+  },
+  "env": {
+    "AIRTABLE_KEY": "@airtable_key",
+    "EVENTBRITE_TOKEN": "@eventbrite_token",
+    "GOOGLE_MAPS_KEY": "@google_maps_key",
+    "MUSLAMICMAKERS_AIRTABLE_BASE_TABLE": "@muslamicmakers_airtable_base_table"
   }
 }

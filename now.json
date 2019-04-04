@@ -1,6 +1,7 @@
 {
   "alias": "api.muslamicmakers.com",
   "version": 2,
+  "builds": [{ "src": "*.js", "use": "@now/node" }],
   "env": {
     "AIRTABLE_KEY": "@airtable_key",
     "EVENTBRITE_TOKEN": "@eventbrite_token",

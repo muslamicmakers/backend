@@ -29,6 +29,6 @@
   "scripts": {
     "start": "micro --port 3000 index.js",
     "dev": "micro-dev index.js",
-    "deploy": "now"
+    "deploy": "now --target production"
   }
 }

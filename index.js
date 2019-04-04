@@ -5,9 +5,6 @@ const { router, get } = require('microrouter');
 const airtable = require('./airtable');
 const eventbrite = require('./eventbrite');
 
-let cachedAirtableData = null;
-let cachedEventbriteData = null;
-
 const airtableRoute = async (req, res) => {
   const headerData = airtable.getHeader();
   const videoData = airtable.getVideos();
@@ -36,6 +33,9 @@ const eventbriteRoute = async (req, res) => {
     ended
   };
 };
+
+let cachedAirtableData = airtableRoute()
+let cachedEventbriteData =  eventbriteRoute();
 
 const warmupCache = () => {
   // NOTE: Be mindful of API limits

@@ -1,10 +1,12 @@
 const ms = require('milliseconds');
 const cors = require('micro-cors')();
-const cache = require('micro-cacheable');
 const { router, get } = require('microrouter');
 
 const airtable = require('./airtable');
 const eventbrite = require('./eventbrite');
+
+let cachedAirtableData = null;
+let cachedEventbriteData = null;
 
 const airtableRoute = async (req, res) => {
   const headerData = airtable.getHeader();
@@ -35,9 +37,33 @@ const eventbriteRoute = async (req, res) => {
   };
 };
 
-const corsAndCache = route => cors(cache(ms.seconds('60'), route));
+const warmupCache = () => {
+  // NOTE: Be mindful of API limits
+  // Eventbrite: 1000 calls per hour
+  // Airtable: 5 requests per second
+  setInterval(async () => {
+    // Poll APIs for data every 10 seconds
+    cachedAirtableData = await airtableRoute();
+    cachedEventbriteData = await eventbriteRoute();
+  }, ms.seconds(10));
+};
+
+const serveFromCache = route => async (req, res) => {
+  switch (route) {
+    case '/':
+      return await cachedAirtableData;
+      break;
+    case '/eventbrite':
+      return await cachedEventbriteData;
+      break;
+    default:
+      break;
+  }
+};
+
+warmupCache();
 
 module.exports = router(
-  get('/', corsAndCache(airtableRoute)),
-  get('/eventbrite', corsAndCache(eventbriteRoute))
+  get('/', cors(serveFromCache('/'))),
+  get('/eventbrite', cors(serveFromCache('/eventbrite')))
 );
